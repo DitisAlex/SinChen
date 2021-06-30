@@ -65,7 +65,7 @@ export default class App extends React.Component {
         )
     }
 
-    resetUsedTable(){
+    resetUsedTable() {
         this.setState(() => ({
             usedTable: []
         }))
@@ -79,16 +79,21 @@ export default class App extends React.Component {
     }
 
     componentDidMount() {
-        checkAuthenticated()
-            .then(response => response.json())
-            .then((response) => {
-                this.setIsAuthenticated(true);
-                this.setUsername(response.user.username);
-                if (response.user.role === 'admin') this.setAdmin(true);
-                this.setLoading(false);
-            }).catch(() => {
-                this.setLoading(false);
-            })
+        try {
+            checkAuthenticated()
+                .then(response => response.json())
+                .then((response) => {
+                    this.setIsAuthenticated(true);
+                    this.setUsername(response.user.username);
+                    if (response.user.role === 'admin') this.setAdmin(true);
+                    this.setLoading(false);
+                }).catch(() => {
+                    this.setLoading(false);
+                });
+        } catch (error) {
+            console.log(error);
+            this.setLoading(false);
+        }
     }
 
     render() {
@@ -100,28 +105,28 @@ export default class App extends React.Component {
         const handleResetUsedTable = () => this.resetUsedTable();
         return (
             <div className="App">
-                {this.state.isLoading ? <div/>
-                : <div>
-                    {this.state.isAuthenticated && <Navbar username={this.state.username} admin={this.state.isAdmin} />}
-                    <div className="container">
-                        <h1>SinChen</h1>
-                        <Switch>
-                            <Route exact path='/' render={(props) => (
-                                <Login {...props} setUsername={handleUsername} setIsAuthenticated={handleAuthenticate} setAdmin={handleAdmin} />
-                            )} />
-                            <Route path='/logout' render={(props) => (
-                                <Logout {...props} setUsername={handleUsername} setIsAuthenticated={handleAuthenticate} setAdmin={handleAdmin} resetUsedTable={handleResetUsedTable}/>
-                            )} />
-                            <ProtectedUserRoute path='/table' setTable={handleTable} usedTable={this.state.usedTable} isAuthenticated={this.state.isAuthenticated} resetUsedTable={handleResetUsedTable} component={SelectTable} />
-                            <ProtectedUserRoute path='/order' setUsedTable={handleUsedTable} username={this.state.username} table={this.state.table} isAuthenticated={this.state.isAuthenticated} component={SelectOrder} />
-                            <ProtectedAdminRoute path='/meals' isAdmin={this.state.isAdmin} component={ManageMeals} />
-                            <ProtectedAdminRoute path='/users' isAdmin={this.state.isAdmin} username={this.state.username} component={ManageUsers} />
-                            <ProtectedAdminRoute path='/orders' isAdmin={this.state.isAdmin} component={ManageOrders} />
-                            <Route path='/unauthorized' component={Unauthorized} />
-                            <Route component={NotFound} />
-                        </Switch>
-                    </div>
-                </div>}
+                {this.state.isLoading ? <div />
+                    : <div>
+                        {this.state.isAuthenticated && <Navbar username={this.state.username} admin={this.state.isAdmin} />}
+                        <div className="container">
+                            <h1>SinChen</h1>
+                            <Switch>
+                                <Route exact path='/' render={(props) => (
+                                    <Login {...props} setUsername={handleUsername} setIsAuthenticated={handleAuthenticate} setAdmin={handleAdmin} />
+                                )} />
+                                <Route path='/logout' render={(props) => (
+                                    <Logout {...props} setUsername={handleUsername} setIsAuthenticated={handleAuthenticate} setAdmin={handleAdmin} resetUsedTable={handleResetUsedTable} />
+                                )} />
+                                <ProtectedUserRoute path='/table' setTable={handleTable} usedTable={this.state.usedTable} isAuthenticated={this.state.isAuthenticated} resetUsedTable={handleResetUsedTable} component={SelectTable} />
+                                <ProtectedUserRoute path='/order' setUsedTable={handleUsedTable} username={this.state.username} table={this.state.table} isAuthenticated={this.state.isAuthenticated} component={SelectOrder} />
+                                <ProtectedAdminRoute path='/meals' isAdmin={this.state.isAdmin} component={ManageMeals} />
+                                <ProtectedAdminRoute path='/users' isAdmin={this.state.isAdmin} username={this.state.username} component={ManageUsers} />
+                                <ProtectedAdminRoute path='/orders' isAdmin={this.state.isAdmin} component={ManageOrders} />
+                                <Route path='/unauthorized' component={Unauthorized} />
+                                <Route component={NotFound} />
+                            </Switch>
+                        </div>
+                    </div>}
             </div>
         )
     }
