@@ -17,6 +17,7 @@ export class PrintOrder extends React.Component {
                         <div className="container">
                         <div className="row justify-content-start">
                             <h3 className="col-3">Tafel: {this.props.table}</h3>
+                            <h3 className="col-3">{"[" + element.type + "]"}</h3>
                         </div>
                         <ul class="list-group">
                             <li class="list-group-item" key={element.name}>

@@ -157,13 +157,13 @@ export default function SelectOrder(props) {
 
         Object.entries(grillFL).forEach((result) => {
             if (result[1].value >= 1) {
-                selectedGrill.push({ name: result[1].name, quantity: result[1].value })
+                selectedGrill.push({ name: result[1].name, quantity: result[1].value, type: "Grill" })
             }
         })
 
         Object.entries(teppanFL).forEach((result) => {
             if (result[1].value >= 1) {
-                selectedTeppan.push({ name: result[1].name, quantity: result[1].value })
+                selectedTeppan.push({ name: result[1].name, quantity: result[1].value, type: "Teppan" })
             }
         })
 
@@ -252,7 +252,7 @@ export default function SelectOrder(props) {
                 </div>
                     : null}
             </div>
-            <div style={{ display: "none" }}><PrintOrder type={orderType} order={order} table={tableNr} user={props.username} ref={componentRef} /></div>
+            <div style={{ display: "none" }}><PrintOrder order={order} table={tableNr} user={props.username} ref={componentRef} /></div>
             <div style={{ display: "none" }}><PrintMultiOrder orderList={orderList} table={tableNr} user={props.username} ref={multiComponentRef} /></div>
         </div>
     )
