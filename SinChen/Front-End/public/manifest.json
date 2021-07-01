@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "SinChen",
+  "name": "Order app for SinChen",
   "icons": [
     {
       "src": "favicon.ico",

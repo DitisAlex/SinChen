@@ -1,6 +1,6 @@
 // import Config from './config.json'
 
-const port = 4000;
+const port = 80;
 const serverHostname = `${window.location.hostname}:${port}`;
 const serverFetchBase = `${window.location.protocol}//${serverHostname}`;
 
