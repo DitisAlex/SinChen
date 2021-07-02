@@ -171,7 +171,7 @@ export default function SelectOrder(props) {
             setStatusMsg(3)
         }
 
-        if(selectedGrill.length > 0){
+        if (selectedGrill.length > 0) {
             try {
                 sendOrder(selectedGrill, tableNr, props.username)
             } catch {
@@ -179,7 +179,7 @@ export default function SelectOrder(props) {
             }
         }
 
-        if(selectedTeppan.length > 0){
+        if (selectedTeppan.length > 0) {
             try {
                 sendOrder(selectedTeppan, tableNr, props.username)
             } catch {
@@ -225,7 +225,7 @@ export default function SelectOrder(props) {
                         Object.entries(grillFL).map(element => {
                             return <div className="d-flex p-2 justify-content-between" key={element[1].id}>
                                 <button type="button" class="btn btn-success btn-lg" name={element[1].name} id={element[1].id} value={element[1].value} onClick={(e) => handleIncrementGrill(e)}>+</button>
-                                <div class="container"><h5>[{element[1].attribute}] {element[1].name} ({element[1].value})</h5></div>
+                                <div class="container"><h4>[{element[1].attribute}] {element[1].name} ({element[1].value})</h4></div>
                                 <button type="button" class="btn btn-danger btn-lg d-flex flex-row" value={element[1].value} name={element[1].name} id={element[1].id} attribute={element[1].attribute} onClick={(e) => handleDecrementGrill(e)}>-</button>
                             </div>
                         })
@@ -237,7 +237,7 @@ export default function SelectOrder(props) {
                         Object.entries(teppanFL).map(element => {
                             return <div className="d-flex p-2 justify-content-between" key={element[1].id}>
                                 <button type="button" class="btn btn-success btn-lg" value={element[1].value} name={element[1].name} id={element[1].id} onClick={(e) => handleIncrementTeppan(e)}>+</button>
-                                <div class="container"><h5>[{element[1].attribute}] {element[1].name} ({element[1].value})</h5></div>
+                                <div class="container"><h4>[{element[1].attribute}] {element[1].name} ({element[1].value})</h4></div>
                                 <button type="button" class="btn btn-danger btn-lg d-flex flex-row" value={element[1].value} name={element[1].name} id={element[1].id} attribute={element[1].attribute} onClick={(e) => handleDecrementTeppan(e)}>-</button>
                             </div>
                         })

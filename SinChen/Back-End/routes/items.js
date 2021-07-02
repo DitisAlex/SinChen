@@ -12,13 +12,13 @@ router.get('/', passport.authenticate('jwt', { session: false }), async function
 
 //Return all items of type 'Teppan'
 router.get('/teppan', passport.authenticate('jwt', { session: false }), async function (req, res) {
-    const result = await Items.find({ type: 'Teppan' })
+    const result = await Items.find({ type: 'Teppan' }).sort({attribute: 1})
     res.send(result)
 })
 
 //Return all items of type 'Grill'
 router.get('/grill', passport.authenticate('jwt', { session: false }), async function (req, res) {
-    const result = await Items.find({ type: 'Grill' })
+    const result = await Items.find({ type: 'Grill' }).sort({attribute: 1})
     res.send(result);
 })
 

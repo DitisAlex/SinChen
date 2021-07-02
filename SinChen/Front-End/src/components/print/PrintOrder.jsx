@@ -21,7 +21,7 @@ export class PrintOrder extends React.Component {
                         </div>
                         <ul class="list-group">
                             <li class="list-group-item" key={element.name}>
-                                <h1>{element.name + " [" + element.quantity + "]"}</h1>
+                                <h1>{"[" + element.quantity + "] " + element.name}</h1>
                             </li>
                         </ul>
                         <div className="row justify-content-start">

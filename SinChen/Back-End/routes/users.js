@@ -10,7 +10,7 @@ const signToken = userID => {
     return JWT.sign({
         iss: "SinChen",
         sub: userID
-    }, "SinChen", { expiresIn: "1h" });
+    }, "SinChen", { expiresIn: "6h" });
 }
 
 //Register user

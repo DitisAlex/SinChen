@@ -15,4 +15,12 @@ const itemSchema = new mongoose.Schema({
     }
 })
 
+// Sets attribute to upperCase
+itemSchema.pre('save', function (next) {
+    capital = this.attribute.toUpperCase();
+    this.attribute = capital
+    next();
+});
+
+
 module.exports = mongoose.model('Item', itemSchema)
