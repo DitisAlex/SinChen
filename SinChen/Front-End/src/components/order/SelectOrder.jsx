@@ -13,6 +13,9 @@ export default function SelectOrder(props) {
     const [order, setOrder] = useState([]);
     const [orderList, setOrderList] = useState([]);
     const [orderType, setOrderType] = useState('');
+    const [isChecked, setIsChecked] = useState({});
+    const [selectedOrderOptions, setSelectedOrderOptions] = useState([]);
+    const orderOptions = ["Sambal", "Knoflook", "Doorbakken", "Ui", "Champignon", "Geen saus"];
 
     const history = useHistory();
 
@@ -144,6 +147,15 @@ export default function SelectOrder(props) {
         })
     };
 
+    const handleCheckbox = e => {
+        let isSelected = e.target.checked;
+
+        if (isSelected) {
+            setIsChecked({ ...isChecked, [e.target.id]: true })
+        } else {
+            setIsChecked({ ...isChecked, [e.target.id]: false })
+        }
+    }
 
     const handleOrder = (e) => {
         e.preventDefault()
@@ -153,7 +165,7 @@ export default function SelectOrder(props) {
 
         let selectedGrill = []
         let selectedTeppan = []
-
+        let selectedOptions = []
 
         Object.entries(grillFL).forEach((result) => {
             if (result[1].value >= 1) {
@@ -166,6 +178,16 @@ export default function SelectOrder(props) {
                 selectedTeppan.push({ name: result[1].name, quantity: result[1].value, type: "Teppan" })
             }
         })
+
+        Object.entries(isChecked).forEach((result) => {
+            if (result[1]) {
+                selectedOptions.push(result[0])
+            }
+        })
+
+        if(selectedOptions.length > 0){
+            setSelectedOrderOptions(selectedOptions)
+        }
 
         if (selectedGrill.length + selectedTeppan.length === 0) {
             setStatusMsg(3)
@@ -219,7 +241,7 @@ export default function SelectOrder(props) {
         <div className="selectOrder">
             <h4>Tafelnummer: {tableNr}</h4>
             <div className="form-row">
-                <div className="form-col col-sm-6">
+                <div className="form-col col-sm-5">
                     <hr /><h2>Grill gerechten:</h2>
                     {grillFL ?
                         Object.entries(grillFL).map(element => {
@@ -231,7 +253,7 @@ export default function SelectOrder(props) {
                         })
                         : null}
                 </div>
-                <div className="form-col col-sm-6">
+                <div className="form-col col-sm-5">
                     <hr /><h2>Teppan gerechten:</h2>
                     {teppanFL ?
                         Object.entries(teppanFL).map(element => {
@@ -243,8 +265,21 @@ export default function SelectOrder(props) {
                         })
                         : null}
                 </div>
+                <div className="form-col col-sm-2">
+                    <hr /><h2>Opties:</h2>
+                    {orderOptions ?
+                        orderOptions.map(element => {
+                            return <div className="d-flex p-2 justify-content-between" key={element}>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id={element} checked={isChecked[element]} onClick={(e) => handleCheckbox(e)} />
+                                    <h4 class="form-check-label" for={element}>{element}</h4>
+                                </div>
+                            </div>
+                        })
+                        : null}
+                </div>
             </div>
-            <button type="button" className="btn btn-primary" onClick={(e) => handleOrder(e)}>Bestel</button>
+            <button type="button" className="btn btn-primary btn-lg" onClick={(e) => handleOrder(e)}>Bestel</button>
             <div className="statusMessages">
                 <br />
                 {handleStatusMsg(statusMsg) ? <div className="alert alert-danger" role="alert">
@@ -252,8 +287,8 @@ export default function SelectOrder(props) {
                 </div>
                     : null}
             </div>
-            <div style={{ display: "none" }}><PrintOrder order={order} table={tableNr} user={props.username} ref={componentRef} /></div>
-            <div style={{ display: "none" }}><PrintMultiOrder orderList={orderList} table={tableNr} user={props.username} ref={multiComponentRef} /></div>
+            <div style={{ display: "none" }}><PrintOrder order={order} table={tableNr} user={props.username} options={selectedOrderOptions} ref={componentRef} /></div>
+            <div style={{ display: "none" }}><PrintMultiOrder orderList={orderList} table={tableNr} user={props.username} options={selectedOrderOptions} ref={multiComponentRef} /></div>
         </div>
     )
 }
