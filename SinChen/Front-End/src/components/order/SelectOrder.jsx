@@ -4,6 +4,7 @@ import { PrintOrder } from "../print/PrintOrder";
 import { PrintMultiOrder } from "../print/PrintMultiOrder";
 import { useReactToPrint } from "react-to-print";
 import { getGrill, getTeppan, sendOrder } from '../../serverCommunications';
+import './order.css'
 
 export default function SelectOrder(props) {
     const [tableNr, setTableNr] = useState('');
@@ -15,7 +16,7 @@ export default function SelectOrder(props) {
     const [orderType, setOrderType] = useState('');
     const [isChecked, setIsChecked] = useState({});
     const [selectedOrderOptions, setSelectedOrderOptions] = useState([]);
-    const orderOptions = ["Sambal", "Knoflook", "Doorbakken", "Ui", "Champignon", "Geen saus"];
+    const orderOptions = ["Sambal", "Knoflook", "Doorbakken", "Ui", "Champignon", "Rood", "Geen saus"];
 
     const history = useHistory();
 
@@ -148,6 +149,7 @@ export default function SelectOrder(props) {
     };
 
     const handleCheckbox = e => {
+
         let isSelected = e.target.checked;
 
         if (isSelected) {
@@ -185,7 +187,7 @@ export default function SelectOrder(props) {
             }
         })
 
-        if(selectedOptions.length > 0){
+        if (selectedOptions.length > 0) {
             setSelectedOrderOptions(selectedOptions)
         }
 
@@ -269,10 +271,10 @@ export default function SelectOrder(props) {
                     <hr /><h2>Opties:</h2>
                     {orderOptions ?
                         orderOptions.map(element => {
-                            return <div className="d-flex p-2 justify-content-between" key={element}>
-                                <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" id={element} checked={isChecked[element]} onClick={(e) => handleCheckbox(e)} />
-                                    <h4 class="form-check-label" for={element}>{element}</h4>
+                            return <div className="container" key={element}>
+                                <div class="custom-control custom-checkbox checkbox-xl">
+                                    <input type="checkbox" class="custom-control-input" id={element} checked={isChecked[element]} onClick={(e) => handleCheckbox(e)}  />
+                                    <label class="custom-control-label" for={element}>{element}</label>
                                 </div>
                             </div>
                         })
