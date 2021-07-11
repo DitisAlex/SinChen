@@ -16,7 +16,7 @@ export default function SelectOrder(props) {
     const [orderType, setOrderType] = useState('');
     const [isChecked, setIsChecked] = useState({});
     const [selectedOrderOptions, setSelectedOrderOptions] = useState([]);
-    const orderOptions = ["Sambal", "Knoflook", "Doorbakken", "Ui", "Champignon", "Rood", "Geen saus"];
+    const orderOptions = ["Sambal", "Knoflook", "Ui", "Champignon", "Doorbakken", "Rood", "Champignon saus", "Peper saus", "Geen saus", "Een bord"];
 
     const history = useHistory();
 
