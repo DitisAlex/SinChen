@@ -72,6 +72,7 @@ export default function ManageMeals(props) {
     }
 
     return (<div className="container">
+        <h1>Beheer gerechten</h1>
         <h2>Voeg gerecht toe:</h2>
         <form class="form-inline-lg">
             <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Kenmerk... (max 3 karakters)" maxlength="3" onChange={(e) => setItemAttribute(e.target.value)} value={itemAttribute} />

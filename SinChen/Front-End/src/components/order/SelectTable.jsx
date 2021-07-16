@@ -24,20 +24,20 @@ export default function SelectTable(props) {
     return (
         <div className="container">
             <h1>Selecteer tafel
-                <button type="button" class="btn btn-secondary" onClick={(e) => {resetSelectedTables(e)}}>Reset tafels</button>
+            <button type="button" class="btn btn-primary ml-3" onClick={(e) => {resetSelectedTables(e)}}>Reset tafels</button>
             </h1>
             <div class="row">
                 {tables.map((element, index) => {
                     if (usedTable.includes(element)) {
                         return <div class="col-xs-3 w-25" key={index}>
-                            <button type="button" class="btn btn-success  btn-lg btn-block" id={element} onClick={(e) => handleButtonClick(e)}>{element}</button>
+                            <button type="button" class="btn btn-success btn-lg btn-block" id={element} onClick={(e) => handleButtonClick(e)}>{element}</button>
                         </div>
                     }
                     return <div class="col-xs-3 w-25" key={index}>
                         <button type="button" class="btn btn-outline-secondary btn-lg btn-block" id={element} onClick={(e) => handleButtonClick(e)}>{element}</button>
                     </div>
                 })}
-            </div><br/>
-        </div>
+            </div><br />
+        </div >
     )
 }

@@ -15,6 +15,7 @@ export default function SelectOrder(props) {
     const [orderList, setOrderList] = useState([]);
     const [orderType, setOrderType] = useState('');
     const [isChecked, setIsChecked] = useState({});
+    const [isVisible, setIsVisible] = useState(false);
     const [selectedOrderOptions, setSelectedOrderOptions] = useState([]);
     const orderOptions = ["Sambal", "Knoflook", "Ui", "Champignon", "Doorbakken", "Rood", "Champignon saus", "Peper saus", "Geen saus", "Een bord"];
 
@@ -31,6 +32,25 @@ export default function SelectOrder(props) {
         content: () => multiComponentRef.current,
         onAfterPrint: () => handlePrintFinish()
     });
+
+    const toggleVisibility = () => {
+        if (window.pageYOffset > 350) {
+            setIsVisible(true);
+        } else {
+            setIsVisible(false);
+        }
+    };
+
+    const scrollToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    };
+
+    useEffect(() => {
+        window.addEventListener("scroll", toggleVisibility);
+    }, []);
 
     useEffect(() => {
         if ((props.table === "")) history.push('/table')
@@ -242,27 +262,48 @@ export default function SelectOrder(props) {
     return (
         <div className="selectOrder">
             <h4>Tafelnummer: {tableNr}</h4>
+            <button type="button" className="btn btn-primary btn-lg" onClick={(e) => handleOrder(e)}>Bestel</button>
+            <div className="statusMessages">
+                {handleStatusMsg(statusMsg) ? <div><br /><div className="alert alert-danger" role="alert">
+                    {handleStatusMsg(statusMsg)}
+                </div></div>
+                    : null}
+            </div>
             <div className="form-row">
-                <div className="form-col col-sm-5">
+                <div className="form-col col-md">
                     <hr /><h2>Grill gerechten:</h2>
                     {grillFL ?
                         Object.entries(grillFL).map(element => {
-                            return <div className="d-flex p-2 justify-content-between" key={element[1].id}>
-                                <button type="button" class="btn btn-success btn-lg" name={element[1].name} id={element[1].id} value={element[1].value} onClick={(e) => handleIncrementGrill(e)}>+</button>
-                                <div class="container"><h4>[{element[1].attribute}] {element[1].name} ({element[1].value})</h4></div>
-                                <button type="button" class="btn btn-danger btn-lg d-flex flex-row" value={element[1].value} name={element[1].name} id={element[1].id} attribute={element[1].attribute} onClick={(e) => handleDecrementGrill(e)}>-</button>
+                            return <div className="container">
+                                <div className="row mt-2" key={element[1].id}>
+                                    <div className="col-3">
+                                        <button type="button" className="btn btn-success btn-lg" value={element[1].value} name={element[1].name} id={element[1].id} onClick={(e) => handleIncrementGrill(e)}>+</button>
+                                    </div>
+                                    <div className="col-6">
+                                        <h5>[{element[1].attribute}] {element[1].name} ({element[1].value})</h5></div>
+                                    <div className="col-3">
+                                        <button type="button" className="btn btn-danger btn-lg" value={element[1].value} name={element[1].name} id={element[1].id} attribute={element[1].attribute} onClick={(e) => handleDecrementGrill(e)}>-</button>
+                                    </div>
+                                </div>
                             </div>
                         })
                         : null}
                 </div>
-                <div className="form-col col-sm-5">
+                <div className="form-col col-md">
                     <hr /><h2>Teppan gerechten:</h2>
                     {teppanFL ?
                         Object.entries(teppanFL).map(element => {
-                            return <div className="d-flex p-2 justify-content-between" key={element[1].id}>
-                                <button type="button" class="btn btn-success btn-lg" value={element[1].value} name={element[1].name} id={element[1].id} onClick={(e) => handleIncrementTeppan(e)}>+</button>
-                                <div class="container"><h4>[{element[1].attribute}] {element[1].name} ({element[1].value})</h4></div>
-                                <button type="button" class="btn btn-danger btn-lg d-flex flex-row" value={element[1].value} name={element[1].name} id={element[1].id} attribute={element[1].attribute} onClick={(e) => handleDecrementTeppan(e)}>-</button>
+                            return <div className="container">
+                                <div className="row mt-2" key={element[1].id}>
+                                    <div className="col-3">
+                                        <button type="button" className="btn btn-success btn-lg" value={element[1].value} name={element[1].name} id={element[1].id} onClick={(e) => handleIncrementTeppan(e)}>+</button>
+                                    </div>
+                                    <div className="col-6">
+                                        <h5>[{element[1].attribute}] {element[1].name} ({element[1].value})</h5></div>
+                                    <div className="col-3">
+                                        <button type="button" className="btn btn-danger btn-lg" value={element[1].value} name={element[1].name} id={element[1].id} attribute={element[1].attribute} onClick={(e) => handleDecrementTeppan(e)}>-</button>
+                                    </div>
+                                </div>
                             </div>
                         })
                         : null}
@@ -273,21 +314,21 @@ export default function SelectOrder(props) {
                         orderOptions.map(element => {
                             return <div className="container" key={element}>
                                 <div class="custom-control custom-checkbox checkbox-xl">
-                                    <input type="checkbox" class="custom-control-input" id={element} checked={isChecked[element]} onClick={(e) => handleCheckbox(e)}  />
+                                    <input type="checkbox" class="custom-control-input" id={element} checked={isChecked[element]} onClick={(e) => handleCheckbox(e)} />
                                     <label class="custom-control-label" for={element}>{element}</label>
                                 </div>
                             </div>
                         })
                         : null}
                 </div>
-            </div>
-            <button type="button" className="btn btn-primary btn-lg" onClick={(e) => handleOrder(e)}>Bestel</button>
-            <div className="statusMessages">
-                <br />
-                {handleStatusMsg(statusMsg) ? <div className="alert alert-danger" role="alert">
-                    {handleStatusMsg(statusMsg)}
-                </div>
-                    : null}
+            </div><br />
+            <div className="back-to-top">
+                {isVisible &&
+                    <div onClick={scrollToTop}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-arrow-up-square-fill" viewBox="0 0 16 16">
+                            <path d="M2 16a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2zm6.5-4.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 1 0z" />
+                        </svg>
+                    </div>}
             </div>
             <div style={{ display: "none" }}><PrintOrder order={order} table={tableNr} user={props.username} options={selectedOrderOptions} ref={componentRef} /></div>
             <div style={{ display: "none" }}><PrintMultiOrder orderList={orderList} table={tableNr} user={props.username} options={selectedOrderOptions} ref={multiComponentRef} /></div>

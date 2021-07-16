@@ -5,11 +5,17 @@
 .checkbox-xl .custom-control-label::before, 
 .checkbox-xl .custom-control-label::after {
   top: 1.2rem;
-  width: 1.85rem;
-  height: 1.85rem;
+  width: 2.5rem;
+  height: 2.5rem;
 }
 
 .checkbox-xl .custom-control-label {
   padding-top: 15px;
-  padding-left: 10px;
+  padding-left: 25px;
+}
+
+.back-to-top {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
 }
