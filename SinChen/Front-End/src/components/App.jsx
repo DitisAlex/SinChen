@@ -116,7 +116,7 @@ export default class App extends React.Component {
                             <ProtectedUserRoute path='/order' setUsedTable={handleUsedTable} username={this.state.username} table={this.state.table} isAuthenticated={this.state.isAuthenticated} component={SelectOrder} />
                             <ProtectedAdminRoute path='/meals' isAdmin={this.state.isAdmin} component={ManageMeals} />
                             <ProtectedAdminRoute path='/users' isAdmin={this.state.isAdmin} username={this.state.username} component={ManageUsers} />
-                            <ProtectedAdminRoute path='/orders' isAdmin={this.state.isAdmin} component={ManageOrders} />
+                            <ProtectedUserRoute path='/orders' isAuthenticated={this.state.isAuthenticated} component={ManageOrders} />
                             <Route path='/unauthorized' component={Unauthorized} />
                             <Route component={NotFound} />
                         </Switch>

@@ -15,10 +15,10 @@ export default function Navbar(props) {
                         <Link to="/table" class="nav-link">Bestel</Link>
                     </li>
                     <li class="nav-item">
-                        <Link to="/meals" class="nav-link">Gerechten</Link>
+                        <Link to="/orders" class="nav-link">Bestellingen</Link>
                     </li>
                     <li class="nav-item">
-                        <Link to="/orders" class="nav-link">Bestellingen</Link>
+                        <Link to="/meals" class="nav-link">Gerechten</Link>
                     </li>
                     <li class="nav-item">
                         <Link to="/users" class="nav-link">Gebruikers</Link>
@@ -27,6 +27,9 @@ export default function Navbar(props) {
                     : <ul class="navbar-nav">
                         <li class="nav-item">
                             <Link to="/table" class="nav-link">Bestel</Link>
+                        </li>
+                        <li class="nav-item">
+                            <Link to="/orders" class="nav-link">Bestellingen</Link>
                         </li>
                     </ul>}
                 <ul class="navbar-nav flex-row justify-content-md-center justify-content-start flex-nowrap">
