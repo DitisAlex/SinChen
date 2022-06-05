@@ -30,11 +30,11 @@ export default function SelectTable(props) {
                 {tables.map((element, index) => {
                     if (usedTable.includes(element)) {
                         return <div class="col-xs-3 w-25" key={index}>
-                            <button type="button" class="btn btn-success btn-lg btn-block" id={element} onClick={(e) => handleButtonClick(e)}>{element}</button>
+                            <button type="button" class="btn btn-success btn-lg custom-btn-block" id={element} onClick={(e) => handleButtonClick(e)}>{element}</button>
                         </div>
                     }
                     return <div class="col-xs-3 w-25" key={index}>
-                        <button type="button" class="btn btn-outline-secondary btn-lg btn-block" id={element} onClick={(e) => handleButtonClick(e)}>{element}</button>
+                        <button type="button" class="btn btn-outline-secondary btn-lg custom-btn-block" id={element} onClick={(e) => handleButtonClick(e)}>{element}</button>
                     </div>
                 })}
             </div><br />

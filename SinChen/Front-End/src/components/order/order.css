@@ -2,6 +2,12 @@
     font-size: x-large;
 }
 
+.custom-btn-block {
+  display: block;
+  height: 6rem;
+  width: 100%;
+}
+
 .checkbox-xl .custom-control-label::before, 
 .checkbox-xl .custom-control-label::after {
   top: 1.2rem;
